@@ -30,10 +30,10 @@ const matcap3 = textureLoader.load('/textures/matcaps/3.png')
 const matcap4 = textureLoader.load('/textures/matcaps/4.png')
 const matcap5 = textureLoader.load('/textures/matcaps/5.png')
 const matcap6 = textureLoader.load('/textures/matcaps/6.png')
-const matcap7 = textureLoader.load('/textures/matcaps/7.png')
-const textmatcap = textureLoader.load('/textures/matcaps/8.png')
+const matcap8 = textureLoader.load('/textures/matcaps/8.png')
+const textmatcap = textureLoader.load('/textures/matcaps/7.png')
 
-let matcaps = [matcap1, matcap2, matcap3, matcap4, matcap5, matcap6, matcap7]
+let matcaps = [matcap1, matcap2, matcap3, matcap4, matcap5, matcap6, matcap8]
 // Font Loader
 
 
@@ -190,9 +190,9 @@ const tick = () => {
     let intersects = raycaster.intersectObjects(spheres)
     // console.log((intersects));
 
-    if (coloredIntersectedObjects.length) {
+    if (coloredIntersectedObjects.length > 0) {
         coloredIntersectedObjects.forEach(coloredInteresectedObject => {
-            coloredInteresectedObject.material.color.set('#ff0000');
+            coloredInteresectedObject.material.color.set("#fff")
         });
         coloredIntersectedObjects = []
     }
