@@ -42,7 +42,7 @@ const textLoader = new FontLoader();
 let spheres = [];
 let textMesh;
 
-const sphereGeometry = new THREE.SphereGeometry(0.2);
+const sphereGeometry = new THREE.SphereGeometry(0.25);
 
 
 const font = textLoader.load("/fonts/helvetiker_regular.typeface.json",
