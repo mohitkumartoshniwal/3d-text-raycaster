@@ -242,7 +242,7 @@ const tick = () => {
     // Update controls
     controls.update();
     controls.autoRotate = true
-    controls.autoRotateSpeed = 2
+    controls.autoRotateSpeed = 1
 
     // Render
     renderer.render(scene, camera)
