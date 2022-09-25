@@ -18,6 +18,7 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
+// scene.background = new THREE.Color("white")
 
 /**
  * Textures
@@ -140,14 +141,14 @@ window.addEventListener('resize', () => {
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
 camera.position.y = 0
-camera.position.z = 5
+camera.position.z = 10
 scene.add(camera)
 
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 controls.minDistance = 2;
-controls.maxDistance = 8;
+controls.maxDistance = 11;
 
 
 /**
@@ -169,18 +170,36 @@ let coloredIntersectedObjects = []
 
 
 const mouse = new THREE.Vector2()
-window.addEventListener("mousemove", (event) => {
-    mouse.x = (event.clientX / sizes.width) * 2 - 1
-    mouse.y = -((event.clientY / sizes.height) * 2 - 1)
 
-});
+const isMobile = window.matchMedia("only screen and (max-width:480px)").matches
 
-window.addEventListener("click", () => {
+if (isMobile) {
+    window.addEventListener("touchstart", (event) => {
+        // console.log("touchstart ", event)
+        mouse.x = (event.changedTouches[0].clientX / sizes.width) * 2 - 1
+        mouse.y = -((event.changedTouches[0].clientY / sizes.height) * 2 - 1)
+    })
+} else {
+    window.addEventListener("mousemove", (event) => {
+        // console.log("mousemove ", event)
+        mouse.x = (event.clientX / sizes.width) * 2 - 1
+        mouse.y = -((event.clientY / sizes.height) * 2 - 1)
+    });
+}
+
+
+
+
+
+window.addEventListener("click", (event) => {
+    console.log("click ")
     if (currentIntersect) {
-        console.log("clicked")
         camera.position.copy(currentIntersect.object.position)
     }
+
 })
+
+
 
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
@@ -188,7 +207,6 @@ const tick = () => {
     raycaster.setFromCamera(mouse, camera)
 
     let intersects = raycaster.intersectObjects(spheres)
-    // console.log((intersects));
 
     if (coloredIntersectedObjects.length > 0) {
         coloredIntersectedObjects.forEach(coloredInteresectedObject => {
@@ -205,27 +223,26 @@ const tick = () => {
 
     if (intersects.length) {
         if (currentIntersect === null) {
-            console.log("mouse enter");
+            // console.log("mouse enter");
             document.body.style.cursor = "all-scroll"
         }
         currentIntersect = intersects[0]
     } else {
         if (currentIntersect) {
-            console.log("mouse leave")
+            // console.log("mouse leave")
             document.body.style.cursor = "default"
-
-
         }
         currentIntersect = null
-
     }
-    camera.rotation.y = Math.sin(elapsedTime);
+
+
+    // camera.rotation.y = Math.sin(elapsedTime);
 
 
     // Update controls
     controls.update();
     controls.autoRotate = true
-    controls.autoRotateSpeed = 4
+    controls.autoRotateSpeed = 2
 
     // Render
     renderer.render(scene, camera)
